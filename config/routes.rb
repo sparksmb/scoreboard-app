@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  devise_for :users, skip: [:passwords, :confirmations, :registrations, :unlocks]
+  devise_for :users, skip: [:passwords, :confirmations, :registrations, :unlocks],
+             controllers: { sessions: 'users/sessions' }
   
   # Admin web interface routes
   namespace :admin do

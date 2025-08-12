@@ -1,4 +1,5 @@
 class WebApplicationController < ActionController::Base
+  layout 'application'
   protect_from_forgery with: :exception
   before_action :authenticate_user!
   before_action :ensure_admin_user
@@ -8,7 +9,14 @@ class WebApplicationController < ActionController::Base
   
   def ensure_admin_user
     unless current_user&.admin?
-      redirect_to new_user_session_path
+      if current_user
+        # User is logged in but not an admin
+        sign_out current_user
+        redirect_to new_user_session_path, alert: "Admin access required. Please sign in with an admin account."
+      else
+        # User is not logged in
+        redirect_to new_user_session_path, alert: "Please sign in to access the admin interface."
+      end
     end
   end
   

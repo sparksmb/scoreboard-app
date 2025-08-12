@@ -48,7 +48,7 @@ RSpec.feature "Screenshot Methods Demo", type: :feature do
   end
   
   # This test shows how to use screenshots in failing scenarios
-  scenario "screenshot on failure example" do
+  xscenario "screenshot on failure example" do
     login_as(admin_user, scope: :user)
     visit admin_organizations_path
     

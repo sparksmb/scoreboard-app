@@ -185,7 +185,7 @@
         <div class="nav-links">
           <% if user_signed_in? %>
             <%= link_to "Organizations", admin_organizations_path %>
-            <%= link_to "#{current_user.full_name}", edit_user_registration_path %>
+            <span style="color: white; margin-left: 1rem;"><%= current_user.full_name %></span>
             <%= link_to "Sign out", destroy_user_session_path, method: :delete %>
           <% else %>
             <%= link_to "Sign in", new_user_session_path %>
