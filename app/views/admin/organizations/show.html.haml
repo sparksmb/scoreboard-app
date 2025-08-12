@@ -1,0 +1,50 @@
+.page-header
+  %h2= @organization.name
+  %div
+    = link_to "Edit", edit_admin_organization_path(@organization), class: "btn"
+    = link_to "Back to Organizations", admin_organizations_path, class: "btn btn-secondary"
+
+.card
+  %h3 Organization Details
+  %div{style: "display: grid; grid-template-columns: 150px 1fr; gap: 1rem; margin-top: 1rem;"}
+    %div
+      %strong Name:
+    %div= @organization.name
+    
+    %div
+      %strong Status:
+    %div
+      %span{style: "color: #{@organization.active? ? '#28a745' : '#dc3545'};"}
+        = @organization.active? ? 'Active' : 'Inactive'
+    
+    %div
+      %strong Users:
+    %div= @organization.users.count
+    
+    %div
+      %strong Created:
+    %div= @organization.created_at.strftime("%B %d, %Y at %I:%M %p")
+    
+    %div
+      %strong Updated:
+    %div= @organization.updated_at.strftime("%B %d, %Y at %I:%M %p")
+
+- if @organization.users.any?
+  .card
+    %h3 Associated Users
+    %table
+      %thead
+        %tr
+          %th Name
+          %th Email
+          %th Admin
+          %th Created
+      %tbody
+        - @organization.users.order(:last_name, :first_name).each do |user|
+          %tr
+            %td= user.full_name
+            %td= user.email
+            %td
+              %span{style: "color: #{user.admin? ? '#28a745' : '#6c757d'};"}
+                = user.admin? ? 'Yes' : 'No'
+            %td= user.created_at.strftime("%B %d, %Y")

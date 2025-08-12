@@ -1,0 +1,31 @@
+.page-header
+  %h2 Edit Organization
+  %div
+    = link_to "View", admin_organization_path(@organization), class: "btn btn-secondary"
+    = link_to "Back to Organizations", admin_organizations_path, class: "btn btn-secondary"
+
+.card
+  = form_with model: [:admin, @organization], local: true do |form|
+    - if @organization.errors.any?
+      %div{style: "color: #dc3545; margin-bottom: 1rem;"}
+        %h4
+          = pluralize(@organization.errors.count, "error")
+          prohibited this organization from being saved:
+        %ul
+          - @organization.errors.full_messages.each do |message|
+            %li= message
+
+    .form-group
+      = form.label :name
+      = form.text_field :name, placeholder: "Enter organization name"
+
+    .form-group
+      = form.label :active, "Status"
+      = form.select :active, 
+        options_for_select([['Active', true], ['Inactive', false]], @organization.active),
+        {}, 
+        { class: 'form-control' }
+
+    .form-actions
+      = form.submit "Update Organization", class: "btn"
+      = link_to "Cancel", admin_organization_path(@organization), class: "btn btn-secondary"

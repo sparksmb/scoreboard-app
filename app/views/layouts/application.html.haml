@@ -1,11 +1,11 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Scoreboard App - Admin</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-    <style>
+!!! 5
+%html
+  %head
+    %title Scoreboard App - Admin
+    %meta{name: "viewport", content: "width=device-width,initial-scale=1"}
+    = csrf_meta_tags
+    = csp_meta_tag
+    :css
       * {
         margin: 0;
         padding: 0;
@@ -175,37 +175,25 @@
       .page-header h2 {
         color: #333;
       }
-    </style>
-  </head>
 
-  <body>
-    <div class="header">
-      <div class="container">
-        <h1>Scoreboard App - Admin</h1>
-        <div class="nav-links">
-          <% if user_signed_in? %>
-            <%= link_to "Organizations", admin_organizations_path %>
-            <span style="color: white; margin-left: 1rem;"><%= current_user.full_name %></span>
-            <%= link_to "Sign out", destroy_user_session_path, method: :delete %>
-          <% else %>
-            <%= link_to "Sign in", new_user_session_path %>
-          <% end %>
-        </div>
-      </div>
-    </div>
+  %body
+    .header
+      .container
+        %h1 Scoreboard App - Admin
+        .nav-links
+          - if user_signed_in?
+            = link_to "Organizations", admin_organizations_path
+            %span{style: "color: white; margin-left: 1rem;"}= current_user.full_name
+            = link_to "Sign out", destroy_user_session_path, method: :delete
+          - else
+            = link_to "Sign in", new_user_session_path
     
-    <div class="container">
-      <div class="flash-messages">
-        <% if notice %>
-          <div class="flash-notice"><%= notice %></div>
-        <% end %>
+    .container
+      .flash-messages
+        - if notice
+          .flash-notice= notice
         
-        <% if alert %>
-          <div class="flash-alert"><%= alert %></div>
-        <% end %>
-      </div>
+        - if alert
+          .flash-alert= alert
       
-      <%= yield %>
-    </div>
-  </body>
-</html>
+      = yield
