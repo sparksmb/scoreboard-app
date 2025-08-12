@@ -1,0 +1,29 @@
+#!/usr/bin/env ruby
+
+# Debug test runner with Pry support
+# Usage: 
+#   ./bin/debug_test spec/features/admin/organizations_debug_example_spec.rb
+#   DEBUG=1 bundle exec rspec spec/features/admin/organizations_debug_example_spec.rb
+
+ENV['DEBUG'] = '1'
+
+# Change to the Rails root directory
+Dir.chdir File.expand_path('..', __dir__)
+
+# Run the test with RSpec
+if ARGV.empty?
+  puts "Usage: #{$0} <test_file_or_pattern>"
+  puts "Example: #{$0} spec/features/admin/organizations_debug_example_spec.rb"
+  exit 1
+end
+
+test_file = ARGV[0]
+
+puts "🐛 Running test with Pry debugging enabled..."
+puts "📁 Test file: #{test_file}"
+puts "💡 Tip: Type 'c' to continue, 'n' for next line, 's' to step into"
+puts "💡 Tip: Type 'page.body' to see HTML, 'save_and_open_page' to open in browser"
+puts "💡 Tip: Type 'current_path' to see current URL"
+puts "=" * 50
+
+exec "bundle exec rspec #{test_file}"

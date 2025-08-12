@@ -1,0 +1,48 @@
+<div class="page-header">
+  <h2>Organizations</h2>
+  <%= link_to "New Organization", new_admin_organization_path, class: "btn" %>
+</div>
+
+<% if @organizations.any? %>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Status</th>
+        <th>Users</th>
+        <th>Created</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @organizations.each do |organization| %>
+        <tr>
+          <td>
+            <%= link_to organization.name, admin_organization_path(organization) %>
+          </td>
+          <td>
+            <span style="color: <%= organization.active? ? '#28a745' : '#dc3545' %>;">
+              <%= organization.active? ? 'Active' : 'Inactive' %>
+            </span>
+          </td>
+          <td><%= organization.users.count %></td>
+          <td><%= organization.created_at.strftime("%B %d, %Y") %></td>
+          <td>
+            <%= link_to "View", admin_organization_path(organization), class: "btn btn-secondary" %>
+            <%= link_to "Edit", edit_admin_organization_path(organization), class: "btn btn-secondary" %>
+            <%= link_to "Delete", admin_organization_path(organization), 
+                        method: :delete,
+                        class: "btn btn-danger",
+                        confirm: "Are you sure? This will also delete all associated users.",
+                        data: { turbo_method: :delete } %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <div class="card">
+    <p>No organizations found.</p>
+    <%= link_to "Create the first organization", new_admin_organization_path, class: "btn" %>
+  </div>
+<% end %>

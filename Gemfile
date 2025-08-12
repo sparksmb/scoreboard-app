@@ -23,10 +23,17 @@ group :development, :test do
   gem "rspec-rails"
   gem "factory_bot_rails"
   gem "faker"
+  gem "pry"
+  gem "pry-rails"
+  gem "pry-byebug"
 end
 
 group :test do
   gem "shoulda-matchers"
   gem "database_cleaner-active_record"
+  gem "capybara"
+  gem "selenium-webdriver"
+  gem "webdrivers"
+  gem "launchy"  # For save_and_open_page in tests
 end
 

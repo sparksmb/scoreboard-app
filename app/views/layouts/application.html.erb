@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Scoreboard App - Admin</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        background-color: #f4f4f4;
+      }
+      
+      .header {
+        background-color: #2c5aa0;
+        color: white;
+        padding: 1rem 0;
+        margin-bottom: 2rem;
+      }
+      
+      .header .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      
+      .header h1 {
+        font-size: 1.5rem;
+      }
+      
+      .nav-links a {
+        color: white;
+        text-decoration: none;
+        margin-left: 1rem;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        transition: background-color 0.3s;
+      }
+      
+      .nav-links a:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+      
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1rem;
+      }
+      
+      .flash-messages {
+        margin-bottom: 1rem;
+      }
+      
+      .flash-notice, .flash-alert {
+        padding: 0.75rem;
+        margin-bottom: 1rem;
+        border-radius: 4px;
+      }
+      
+      .flash-notice {
+        background-color: #d4edda;
+        border: 1px solid #c3e6cb;
+        color: #155724;
+      }
+      
+      .flash-alert {
+        background-color: #f8d7da;
+        border: 1px solid #f5c6cb;
+        color: #721c24;
+      }
+      
+      .btn {
+        display: inline-block;
+        padding: 0.5rem 1rem;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.875rem;
+        transition: background-color 0.3s;
+      }
+      
+      .btn:hover {
+        background-color: #0056b3;
+      }
+      
+      .btn-danger {
+        background-color: #dc3545;
+      }
+      
+      .btn-danger:hover {
+        background-color: #bd2130;
+      }
+      
+      .btn-secondary {
+        background-color: #6c757d;
+      }
+      
+      .btn-secondary:hover {
+        background-color: #5a6268;
+      }
+      
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        background: white;
+        border-radius: 4px;
+        overflow: hidden;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      }
+      
+      th, td {
+        padding: 0.75rem;
+        text-align: left;
+        border-bottom: 1px solid #dee2e6;
+      }
+      
+      th {
+        background-color: #f8f9fa;
+        font-weight: 600;
+      }
+      
+      .form-group {
+        margin-bottom: 1rem;
+      }
+      
+      label {
+        display: block;
+        margin-bottom: 0.25rem;
+        font-weight: 600;
+      }
+      
+      input[type="text"], input[type="email"], input[type="password"], select {
+        width: 100%;
+        padding: 0.5rem;
+        border: 1px solid #ced4da;
+        border-radius: 4px;
+        font-size: 0.875rem;
+      }
+      
+      .form-actions {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1rem;
+      }
+      
+      .card {
+        background: white;
+        padding: 1.5rem;
+        border-radius: 4px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        margin-bottom: 1rem;
+      }
+      
+      .page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+      }
+      
+      .page-header h2 {
+        color: #333;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="header">
+      <div class="container">
+        <h1>Scoreboard App - Admin</h1>
+        <div class="nav-links">
+          <% if user_signed_in? %>
+            <%= link_to "Organizations", admin_organizations_path %>
+            <%= link_to "#{current_user.full_name}", edit_user_registration_path %>
+            <%= link_to "Sign out", destroy_user_session_path, method: :delete %>
+          <% else %>
+            <%= link_to "Sign in", new_user_session_path %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    
+    <div class="container">
+      <div class="flash-messages">
+        <% if notice %>
+          <div class="flash-notice"><%= notice %></div>
+        <% end %>
+        
+        <% if alert %>
+          <div class="flash-alert"><%= alert %></div>
+        <% end %>
+      </div>
+      
+      <%= yield %>
+    </div>
+  </body>
+</html>
