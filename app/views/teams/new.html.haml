@@ -15,6 +15,10 @@
       = form.label :name
       = form.text_field :name, required: true
     
+    .form-group
+      = form.label :mascot
+      = form.text_field :mascot
+    
     - if current_user.admin?
       .form-group
         = form.label :organization_id, "Organization"

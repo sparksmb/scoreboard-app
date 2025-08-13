@@ -7,6 +7,7 @@
     %thead
       %tr
         %th Name
+        %th Mascot
         %th Organization
         %th Colors
         %th Actions
@@ -14,6 +15,7 @@
       - @teams.each do |team|
         %tr
           %td= team.name
+          %td= team.mascot
           %td= team.organization.name
           %td
             - if team.primary_color.present?

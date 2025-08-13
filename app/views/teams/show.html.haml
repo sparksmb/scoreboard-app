@@ -11,6 +11,11 @@
     %strong Organization:
     = @team.organization.name
   
+  - if @team.mascot.present?
+    %p
+      %strong Mascot:
+      = @team.mascot
+  
   - if @team.primary_color.present? || @team.secondary_color.present?
     %p
       %strong Colors:

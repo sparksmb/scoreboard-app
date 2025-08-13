@@ -80,7 +80,7 @@ class TeamsController < ApplicationController
   end
   
   def team_params
-    params.require(:team).permit(:name, :primary_color, :secondary_color, :logo, :organization_id)
+    params.require(:team).permit(:name, :mascot, :primary_color, :secondary_color, :logo, :organization_id)
   end
   
   def ensure_access_to_organization

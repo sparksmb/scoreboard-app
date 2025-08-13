@@ -1,6 +1,7 @@
 FactoryBot.define do
   factory :team do
     sequence(:name) { |n| "Team #{n}" }
+    sequence(:mascot) { |n| "Mascot #{n}" }
     primary_color { "#FF0000" }
     secondary_color { "#FFFFFF" }
     association :organization
