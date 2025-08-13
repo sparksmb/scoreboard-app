@@ -77,12 +77,14 @@ RSpec.feature "Organizations Management", type: :feature do
       expect(page).to have_content("Delete Test District")
       expect(page).to have_link("Delete")
 
-      # For this test, we'll verify the delete link is present and working
-      # In a real scenario, this would show a confirmation dialog
-      # We can test the actual deletion through a request spec if needed
+      # Verify the delete link has the correct attributes for JavaScript handling
       delete_link = find_link("Delete")
       expect(delete_link[:href]).to include(organization_path(org))
-      expect(delete_link[:'data-method']).to eq('delete')
+      expect(delete_link[:'data-turbo-method']).to eq('delete')
+      expect(delete_link[:confirm]).to be_present  # Has confirmation dialog
+      
+      # The actual deletion functionality is tested in the request specs
+      # This feature test verifies the UI elements are present and configured correctly
     end
 
     scenario "organization form validation" do

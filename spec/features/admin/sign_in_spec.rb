@@ -56,6 +56,27 @@ RSpec.feature "Admin Sign In", type: :feature do
     
     expect(current_path).to eq(new_user_session_path)
     expect(page).to have_content("Sign In")
+    expect(page).not_to have_content(admin_user.full_name)
+  end
+  
+  scenario "sign out works via DELETE request" do
+    login_as(admin_user, scope: :user)
+    
+    # Verify user is signed in
+    visit organizations_path
+    expect(page).to have_content(admin_user.full_name)
+    
+    # Sign out using the link
+    click_link "Sign out"
+    
+    # Should be redirected to sign in page and no longer authenticated
+    expect(current_path).to eq(new_user_session_path)
+    expect(page).to have_content("Sign In")
+    expect(page).not_to have_content(admin_user.full_name)
+    
+    # Trying to access organizations should redirect to sign in
+    visit organizations_path
+    expect(current_path).to eq(new_user_session_path)
   end
   
   scenario "accessing admin pages without authentication redirects to sign in" do

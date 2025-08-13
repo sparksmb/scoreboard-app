@@ -5,6 +5,43 @@
     %meta{name: "viewport", content: "width=device-width,initial-scale=1"}
     = csrf_meta_tags
     = csp_meta_tag
+    :javascript
+      // Handle data-turbo-method links
+      document.addEventListener('DOMContentLoaded', function() {
+        document.body.addEventListener('click', function(event) {
+          const link = event.target.closest('a[data-turbo-method]');
+          if (link) {
+            event.preventDefault();
+            const method = link.getAttribute('data-turbo-method');
+            const url = link.getAttribute('href');
+            const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = url;
+            form.style.display = 'none';
+            
+            // Add CSRF token
+            const csrfInput = document.createElement('input');
+            csrfInput.type = 'hidden';
+            csrfInput.name = 'authenticity_token';
+            csrfInput.value = token;
+            form.appendChild(csrfInput);
+            
+            // Add method override for DELETE
+            if (method.toLowerCase() === 'delete') {
+              const methodInput = document.createElement('input');
+              methodInput.type = 'hidden';
+              methodInput.name = '_method';
+              methodInput.value = 'DELETE';
+              form.appendChild(methodInput);
+            }
+            
+            document.body.appendChild(form);
+            form.submit();
+          }
+        });
+      });
     :css
       * {
         margin: 0;
@@ -184,7 +221,7 @@
           - if user_signed_in?
             = link_to "Organizations", organizations_path
             %span{style: "color: white; margin-left: 1rem;"}= current_user.full_name
-            = link_to "Sign out", destroy_user_session_path, method: :delete
+            = link_to "Sign out", destroy_user_session_path, data: { turbo_method: :delete }
           - else
             = link_to "Sign in", new_user_session_path
     
