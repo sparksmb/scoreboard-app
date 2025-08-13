@@ -182,7 +182,7 @@
         %h1 Scoreboard App - Admin
         .nav-links
           - if user_signed_in?
-            = link_to "Organizations", admin_organizations_path
+            = link_to "Organizations", organizations_path
             %span{style: "color: white; margin-left: 1rem;"}= current_user.full_name
             = link_to "Sign out", destroy_user_session_path, method: :delete
           - else

@@ -5,7 +5,7 @@ RSpec.feature "Screenshot Methods Demo", type: :feature do
   
   scenario "demonstrating all screenshot methods" do
     login_as(admin_user, scope: :user)
-    visit admin_organizations_path
+    visit organizations_path
     
     # Basic screenshot - saves and opens automatically
     # ss
@@ -50,7 +50,7 @@ RSpec.feature "Screenshot Methods Demo", type: :feature do
   # This test shows how to use screenshots in failing scenarios
   xscenario "screenshot on failure example" do
     login_as(admin_user, scope: :user)
-    visit admin_organizations_path
+    visit organizations_path
     
     begin
       # This might fail

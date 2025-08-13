@@ -18,22 +18,22 @@ RSpec.feature "Admin Sign In", type: :feature do
     click_button "Sign In"
     
     # Should be redirected to organizations page
-    expect(current_path).to eq(admin_organizations_path)
+    expect(current_path).to eq(organizations_path)
     expect(page).to have_content("Organizations")
     expect(page).to have_content(admin_user.full_name)
     expect(page).to have_link("Sign out")
   end
   
-  scenario "regular user cannot access admin interface" do
+  scenario "regular user can access their organization" do
     visit new_user_session_path
     
     fill_in "Email", with: regular_user.email
     fill_in "Password", with: 'user123'
     click_button "Sign In"
     
-    # Regular user should be signed out and redirected back to sign in
-    expect(current_path).to eq(new_user_session_path)
-    expect(page).to have_content("Sign In")
+    # Regular user should be redirected to their organization
+    expect(current_path).to eq(organization_path(regular_user.organization))
+    expect(page).to have_content(regular_user.organization.name)
   end
   
   scenario "invalid credentials show error" do
@@ -49,7 +49,7 @@ RSpec.feature "Admin Sign In", type: :feature do
   
   scenario "sign out redirects to sign in page" do
     login_as(admin_user, scope: :user)
-    visit admin_organizations_path
+    visit organizations_path
     
     expect(page).to have_link("Sign out")
     click_link "Sign out"
@@ -59,7 +59,7 @@ RSpec.feature "Admin Sign In", type: :feature do
   end
   
   scenario "accessing admin pages without authentication redirects to sign in" do
-    visit admin_organizations_path
+    visit organizations_path
     
     expect(current_path).to eq(new_user_session_path)
     expect(page).to have_content("Sign In")

@@ -1,13 +1,13 @@
 require 'rails_helper'
 
-RSpec.feature "Admin Organizations Management - Debug Example", type: :feature do
+RSpec.feature "Organizations Management - Debug Example", type: :feature do
   let(:admin_user) { create(:user, :admin, first_name: "Debug", last_name: "Admin") }
   
   scenario "debugging organization creation with Pry" do
     login_as(admin_user, scope: :user)
     
     # Navigate to organizations page
-    visit admin_organizations_path
+    visit organizations_path
     
     # Add a breakpoint here to inspect the page state
     binding.pry if ENV['DEBUG']

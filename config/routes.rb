@@ -2,11 +2,8 @@ Rails.application.routes.draw do
   devise_for :users, skip: [:passwords, :confirmations, :registrations, :unlocks],
              controllers: { sessions: 'users/sessions' }
   
-  # Admin web interface routes
-  namespace :admin do
-    resources :organizations
-    root 'organizations#index'
-  end
+  # Organization routes (accessible to users based on permissions)
+  resources :organizations
   
   # API routes
   namespace :api do
@@ -15,8 +12,8 @@ Rails.application.routes.draw do
     end
   end
   
-  # Redirect root to admin for now
-  root 'admin/organizations#index'
+  # Redirect root to organizations for now
+  root 'organizations#index'
   
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.

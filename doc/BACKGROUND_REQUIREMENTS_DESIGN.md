@@ -23,9 +23,6 @@
 * The app should use a Postgresql database since it will be hosted on Heroku.
 * The app should be containerized using Docker so that the development
   environment will be as close to production as possible.
-* There should be a modern Lego-like CSS system that non-designers can use to
-  build front end components such as lists and forms.  My suggestion is to use
-  Tailwind CSS.
 * The app should have an authentication system like Devise.  I recommend using
   devise.
 

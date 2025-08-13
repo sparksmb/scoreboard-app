@@ -1,8 +1,12 @@
 .page-header
   %h2= @organization.name
   %div
-    = link_to "Edit", edit_admin_organization_path(@organization), class: "btn"
-    = link_to "Back to Organizations", admin_organizations_path, class: "btn btn-secondary"
+    - if current_user.admin? || current_user.organization == @organization
+      = link_to "Edit", edit_organization_path(@organization), class: "btn"
+    - if current_user.admin?
+      = link_to "Back to Organizations", organizations_path, class: "btn btn-secondary"
+    - else
+      = link_to "Back", :back, class: "btn btn-secondary"
 
 .card
   %h3 Organization Details
