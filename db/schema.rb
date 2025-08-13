@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_08_13_020159) do
+ActiveRecord::Schema[7.2].define(version: 2025_08_13_021300) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -76,6 +76,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_13_020159) do
     t.string "time_remaining", default: "15:00"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "home_timeouts_remaining", default: 3
+    t.integer "visitor_timeouts_remaining", default: 3
     t.index ["game_id"], name: "index_scoreboards_on_game_id"
     t.index ["type"], name: "index_scoreboards_on_type"
   end
