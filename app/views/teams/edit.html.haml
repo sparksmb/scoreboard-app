@@ -1,0 +1,42 @@
+.page-header
+  %h2 Edit Team: #{@team.name}
+  = link_to "Back to Team", team_path(@team), class: "btn btn-secondary"
+
+.card
+  = form_with model: @team, local: true do |form|
+    - if @team.errors.any?
+      .alert.alert-danger
+        %h4= pluralize(@team.errors.count, "error") + " prohibited this team from being saved:"
+        %ul
+          - @team.errors.full_messages.each do |message|
+            %li= message
+    
+    .form-group
+      = form.label :name
+      = form.text_field :name, required: true
+    
+    - if current_user.admin?
+      .form-group
+        = form.label :organization_id, "Organization"
+        = form.select :organization_id, options_from_collection_for_select(Organization.active.order(:name), :id, :name, @team.organization_id), { prompt: "Select organization" }, { required: true }
+    
+    .form-group
+      = form.label :primary_color, "Primary Color"
+      = form.color_field :primary_color
+    
+    .form-group
+      = form.label :secondary_color, "Secondary Color"
+      = form.color_field :secondary_color
+    
+    .form-group
+      = form.label :logo
+      = form.file_field :logo, accept: "image/*"
+      - if @team.logo.attached?
+        %p
+          Current logo:
+          %br
+          = image_tag @team.logo, style: "max-width: 100px; max-height: 100px;"
+    
+    .form-actions
+      = form.submit "Update Team", class: "btn"
+      = link_to "Cancel", team_path(@team), class: "btn btn-secondary"

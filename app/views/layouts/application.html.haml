@@ -180,12 +180,22 @@
         font-weight: 600;
       }
       
-      input[type="text"], input[type="email"], input[type="password"], select {
+      input[type="text"], input[type="email"], input[type="password"], input[type="color"], input[type="file"], input[type="datetime-local"], select, textarea {
         width: 100%;
         padding: 0.5rem;
         border: 1px solid #ced4da;
         border-radius: 4px;
         font-size: 0.875rem;
+      }
+      
+      input[type="color"] {
+        width: 60px;
+        height: 40px;
+        padding: 0;
+      }
+      
+      input[type="file"] {
+        padding: 0.25rem;
       }
       
       .form-actions {
@@ -220,6 +230,8 @@
         .nav-links
           - if user_signed_in?
             = link_to "Organizations", organizations_path
+            = link_to "Teams", teams_path
+            = link_to "Games", games_path
             %span{style: "color: white; margin-left: 1rem;"}= current_user.full_name
             = link_to "Sign out", destroy_user_session_path, data: { turbo_method: :delete }
           - else

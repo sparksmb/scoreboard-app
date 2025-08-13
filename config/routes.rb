@@ -2,8 +2,12 @@ Rails.application.routes.draw do
   devise_for :users, skip: [:passwords, :confirmations, :registrations, :unlocks],
              controllers: { sessions: 'users/sessions' }
   
-  # Organization routes (accessible to users based on permissions)
+  # Main application routes
   resources :organizations
+  resources :teams
+  resources :games do
+    resources :scoreboards, only: [:show, :edit, :update]
+  end
   
   # API routes
   namespace :api do

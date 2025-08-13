@@ -52,6 +52,8 @@
 
 `Organization`
 has_many :users
+has_many :teams
+has_many :games
 name:string
 
 `User`
@@ -60,23 +62,24 @@ email:string
 first_name:string
 last_name:string
 
-`Season`
-has_many :games
-name:string
-
 `Game`
-belongs_to :season
+belongs_to :organization
+game_type:string (:football, :basketball, :baseball)
 has_one :home_team
 has_one :visitor_team
 has_one scoreboard :polymorphic
+start_time:datetime
 
 `Team`
 belongs_to :game
+belongs_to :organization
+has_one_attached :logo_img
 name:string
 short_name:string
 mascot:string
 bg_color:string
 font_color:string
+
 
 There should be a scoreboard interface (group of attributes and methods) that
 all scoreboards will have.  There also needs to be different types of
@@ -155,39 +158,18 @@ home_tol:integer (max: 5)
 visitor_tol:integer (max: 5)
 
 
-## Functional Screens
+## Contollers
 
-The following screens are public not requiring authentication:
+`TeamsController`
+- list teams
+- create team
+- edit team
+- delete a team
+- show a team
 
-User screens
-* Sign in form
-* Sign up form
-
-Scoreboard screens
-* Show scoreboard
-
-The following screens require user to be signed in:
-
-User screens
-* Show user profile
-* Edit user profile
-
-Admin Only screens
-* List seasons
-* Show season
-* New season
-* Edit season
-* List organizations
-* New organization
-* Show organization
-* Edit organization
-
-Game screens
-* List seasons where an organization has games
-* Show season which lists games for that season
-* New game
-* Show game
-* Edit game
-
-
-
+`GamesController`
+- list games
+- create game
+- edit game
+- delete game
+- show a game

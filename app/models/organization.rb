@@ -1,5 +1,7 @@
 class Organization < ApplicationRecord
   has_many :users, dependent: :destroy
+  has_many :teams, dependent: :destroy
+  has_many :games, dependent: :destroy
   
   validates :name, presence: true, uniqueness: true
   validates :active, inclusion: { in: [true, false] }

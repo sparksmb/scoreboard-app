@@ -1,0 +1,30 @@
+.page-header
+  %h2 Teams
+  = link_to "New Team", new_team_path, class: "btn"
+
+- if @teams.any?
+  %table
+    %thead
+      %tr
+        %th Name
+        %th Organization
+        %th Colors
+        %th Actions
+    %tbody
+      - @teams.each do |team|
+        %tr
+          %td= team.name
+          %td= team.organization.name
+          %td
+            - if team.primary_color.present?
+              %span{style: "display: inline-block; width: 20px; height: 20px; background-color: #{team.primary_color}; border-radius: 3px; margin-right: 5px;"}
+            - if team.secondary_color.present?
+              %span{style: "display: inline-block; width: 20px; height: 20px; background-color: #{team.secondary_color}; border-radius: 3px;"}
+          %td
+            = link_to "View", team_path(team), class: "btn btn-secondary"
+            = link_to "Edit", edit_team_path(team), class: "btn"
+            = link_to "Delete", team_path(team), class: "btn btn-danger", data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }
+- else
+  .card
+    %p No teams found.
+    = link_to "Create your first team", new_team_path, class: "btn"

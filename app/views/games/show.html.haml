@@ -1,0 +1,71 @@
+.page-header
+  %h2= @game.display_name
+  .actions
+    = link_to "Edit", edit_game_path(@game), class: "btn"
+    - if @game.scoreboard
+      = link_to "Manage Scoreboard", game_scoreboard_path(@game, @game.scoreboard), class: "btn"
+    = link_to "Delete", game_path(@game), class: "btn btn-danger", data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }
+    = link_to "Back to Games", games_path, class: "btn btn-secondary"
+
+.card
+  %h3 Game Details
+  .row{style: "display: flex; gap: 2rem;"}
+    .col
+      %p
+        %strong Date & Time:
+        = @game.game_date.strftime("%A, %B %d, %Y at %I:%M %p")
+      %p
+        %strong Organization:
+        = @game.organization.name
+      %p
+        %strong Location:
+        = @game.location.present? ? @game.location : "TBD"
+      %p
+        %strong Status:
+        %span{class: "status-#{@game.status}"}= @game.status.humanize
+    
+    .col
+      - if @game.description.present?
+        %p
+          %strong Description:
+          = simple_format(@game.description)
+
+.card
+  %h3 Teams
+  .teams{style: "display: flex; justify-content: space-around; text-align: center;"}
+    .home-team
+      %h4 Home Team
+      %h5= @game.home_team.name
+      - if @game.home_team.logo.attached?
+        = image_tag @game.home_team.logo, style: "max-width: 100px; max-height: 100px; margin: 10px 0;"
+      - if @game.home_team.primary_color.present?
+        %div{style: "width: 40px; height: 40px; background-color: #{@game.home_team.primary_color}; margin: 10px auto; border-radius: 5px;"}
+    
+    .vs{style: "align-self: center; font-size: 2rem; font-weight: bold; color: #666;"}
+      VS
+    
+    .visitor-team
+      %h4 Visitor Team
+      %h5= @game.visitor_team.name
+      - if @game.visitor_team.logo.attached?
+        = image_tag @game.visitor_team.logo, style: "max-width: 100px; max-height: 100px; margin: 10px 0;"
+      - if @game.visitor_team.primary_color.present?
+        %div{style: "width: 40px; height: 40px; background-color: #{@game.visitor_team.primary_color}; margin: 10px auto; border-radius: 5px;"}
+
+- if @game.scoreboard
+  .card
+    %h3 Current Score
+    .scoreboard{style: "text-align: center; font-size: 1.5rem;"}
+      .score-display{style: "display: flex; justify-content: space-around; margin: 20px 0;"}
+        .home-score
+          %div{style: "font-size: 3rem; font-weight: bold; color: #{@game.home_team.primary_color || '#333'};"}= @game.scoreboard.home_score
+          %div= @game.home_team.name
+        .game-info{style: "align-self: center;"}
+          - if @game.scoreboard.is_a?(FootballScoreboard)
+            %div= @game.scoreboard.display_time
+        .visitor-score
+          %div{style: "font-size: 3rem; font-weight: bold; color: #{@game.visitor_team.primary_color || '#333'};"}= @game.scoreboard.visitor_score
+          %div= @game.visitor_team.name
+    
+    .actions{style: "text-align: center; margin-top: 20px;"}
+      = link_to "Update Scoreboard", edit_game_scoreboard_path(@game, @game.scoreboard), class: "btn"

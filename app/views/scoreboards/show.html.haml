@@ -1,0 +1,40 @@
+.page-header
+  %h2 Scoreboard: #{@game.display_name}
+  .actions
+    = link_to "Edit Scoreboard", edit_game_scoreboard_path(@game, @scoreboard), class: "btn"
+    = link_to "Back to Game", game_path(@game), class: "btn btn-secondary"
+
+.card
+  %h3{style: "text-align: center; margin-bottom: 30px;"}= @game.display_name
+  
+  .scoreboard-display{style: "text-align: center; font-size: 1.5rem;"}
+    .game-info{style: "margin-bottom: 20px;"}
+      %p
+        %strong= @game.game_date.strftime("%A, %B %d, %Y at %I:%M %p")
+      %p
+        %strong= @game.location if @game.location.present?
+      - if @scoreboard.is_a?(FootballScoreboard)
+        %p{style: "font-size: 1.8rem; font-weight: bold; color: #2c5aa0;"}= @scoreboard.display_time
+    
+    .score-display{style: "display: flex; justify-content: space-around; margin: 40px 0;"}
+      .home-team{style: "text-align: center;"}
+        %h4= @game.home_team.name
+        - if @game.home_team.logo.attached?
+          = image_tag @game.home_team.logo, style: "max-width: 120px; max-height: 120px; margin: 15px 0;"
+        - if @game.home_team.primary_color.present?
+          %div{style: "width: 60px; height: 60px; background-color: #{@game.home_team.primary_color}; margin: 15px auto; border-radius: 8px;"}
+        %div{style: "font-size: 4rem; font-weight: bold; color: #{@game.home_team.primary_color || '#333'}; margin: 20px 0;"}= @scoreboard.home_score
+      
+      .vs{style: "align-self: center; font-size: 3rem; font-weight: bold; color: #666; margin: 0 40px;"}
+        VS
+      
+      .visitor-team{style: "text-align: center;"}
+        %h4= @game.visitor_team.name
+        - if @game.visitor_team.logo.attached?
+          = image_tag @game.visitor_team.logo, style: "max-width: 120px; max-height: 120px; margin: 15px 0;"
+        - if @game.visitor_team.primary_color.present?
+          %div{style: "width: 60px; height: 60px; background-color: #{@game.visitor_team.primary_color}; margin: 15px auto; border-radius: 8px;"}
+        %div{style: "font-size: 4rem; font-weight: bold; color: #{@game.visitor_team.primary_color || '#333'}; margin: 20px 0;"}= @scoreboard.visitor_score
+    
+    .actions{style: "margin-top: 40px;"}
+      = link_to "Update Scoreboard", edit_game_scoreboard_path(@game, @scoreboard), class: "btn", style: "font-size: 1.2rem; padding: 12px 24px;"
