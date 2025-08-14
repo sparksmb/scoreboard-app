@@ -1,0 +1,164 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title Live Scoreboard
+    %meta{:name => "viewport", :content => "width=device-width,initial-scale=1"}/
+    = csrf_meta_tags
+    = csp_meta_tag
+    
+    :css
+      body {
+        margin: 0;
+        padding: 0;
+        background: transparent;
+        font-family: Arial, sans-serif;
+      }
+      
+      .live-scoreboard {
+        position: absolute;
+        top: 0;
+        left: 0;
+        margin: 0;
+        padding: 0;
+        background: rgba(0, 0, 0, 0.8);
+        color: white;
+        display: flex;
+        align-items: center;
+        height: 60px;
+        border-radius: 0 0 8px 0;
+        padding-right: 16px;
+      }
+      
+      .team-logo {
+        width: 40px;
+        height: 40px;
+        margin: 0 8px;
+        border-radius: 4px;
+        object-fit: contain;
+        background: white;
+        padding: 2px;
+      }
+      
+      .score {
+        font-size: 24px;
+        font-weight: bold;
+        margin: 0 8px;
+        min-width: 30px;
+        text-align: center;
+      }
+      
+      .timeouts {
+        font-size: 14px;
+        margin: 0 4px;
+        min-width: 20px;
+        text-align: center;
+      }
+      
+      .game-info {
+        font-size: 16px;
+        font-weight: bold;
+        margin: 0 12px;
+        text-align: center;
+      }
+      
+      .quarter {
+        font-size: 14px;
+        margin-right: 4px;
+      }
+      
+      .time {
+        font-size: 16px;
+      }
+      
+      .no-game {
+        padding: 16px;
+        text-align: center;
+        font-size: 18px;
+        color: #666;
+      }
+
+  %body
+    = yield
+    
+    :javascript
+      // Action Cable setup
+      if (typeof window.App === 'undefined') {
+        window.App = {};
+      }
+      
+      // Basic Action Cable consumer implementation
+      window.ActionCable = {
+        createConsumer: function() {
+          return new Consumer();
+        }
+      };
+      
+      function Consumer() {
+        this.subscriptions = new Subscriptions();
+      }
+      
+      function Subscriptions() {
+        this.subscriptions = [];
+      }
+      
+      Subscriptions.prototype.create = function(params, callbacks) {
+        var subscription = new Subscription(params, callbacks);
+        this.subscriptions.push(subscription);
+        return subscription;
+      };
+      
+      function Subscription(params, callbacks) {
+        this.params = params;
+        this.callbacks = callbacks || {};
+        this.connect();
+      }
+      
+      Subscription.prototype.connect = function() {
+        var self = this;
+        var url = 'ws://localhost:3000/cable';
+        
+        this.socket = new WebSocket(url);
+        
+        this.socket.onopen = function() {
+          console.log('WebSocket connected');
+          
+          // Send subscription command
+          var command = {
+            command: 'subscribe',
+            identifier: JSON.stringify({
+              channel: self.params.channel,
+              organization_id: self.params.organization_id
+            })
+          };
+          
+          self.socket.send(JSON.stringify(command));
+          
+          if (self.callbacks.connected) {
+            self.callbacks.connected();
+          }
+        };
+        
+        this.socket.onmessage = function(event) {
+          var data = JSON.parse(event.data);
+          
+          if (data.type === 'confirm_subscription') {
+            console.log('Subscription confirmed');
+          } else if (data.message && self.callbacks.received) {
+            self.callbacks.received(data.message);
+          }
+        };
+        
+        this.socket.onclose = function() {
+          console.log('WebSocket disconnected');
+          if (self.callbacks.disconnected) {
+            self.callbacks.disconnected();
+          }
+        };
+        
+        this.socket.onerror = function(error) {
+          console.error('WebSocket error:', error);
+        };
+      };
+      
+      window.App.cable = ActionCable.createConsumer();

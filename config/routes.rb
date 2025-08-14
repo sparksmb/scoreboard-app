@@ -3,7 +3,9 @@ Rails.application.routes.draw do
              controllers: { sessions: 'users/sessions' }
   
   # Main application routes
-  resources :organizations
+  resources :organizations do
+    get :scoreboard, to: 'live_scoreboards#show'
+  end
   resources :teams
   resources :games do
     resources :scoreboards, only: [:show, :edit, :update]
@@ -18,6 +20,9 @@ Rails.application.routes.draw do
   
   # Redirect root to organizations for now
   root 'organizations#index'
+  
+  # Action Cable
+  mount ActionCable.server => '/cable'
   
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.

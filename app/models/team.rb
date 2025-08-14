@@ -19,4 +19,8 @@ class Team < ApplicationRecord
   def display_name
     name
   end
+  
+  def logo_url
+    logo.attached? ? Rails.application.routes.url_helpers.rails_blob_path(logo, only_path: true) : nil
+  end
 end
