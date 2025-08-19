@@ -1,0 +1,163 @@
+Creating Texas High School Football Teams from Forney 2025 Schedule...
+✓ Created/Found team: Forney Jackrabbits (Jackrabbits) from Forney, TX
+  Colors: #000080 / #FFD700
+  Logo search: Forney High School Jackrabbits logo
+
+✓ Created/Found team: Rowlett Eagles (Eagles) from Rowlett, TX
+  Colors: #8B0000 / #FFFFFF
+  Logo search: Rowlett High School Eagles logo
+
+✓ Created/Found team: Lake Highlands Wildcats (Wildcats) from Dallas, TX
+  Colors: #000080 / #FFD700
+  Logo search: Lake Highlands High School Wildcats logo Dallas
+
+✓ Created/Found team: A&M Consolidated Tigers (Tigers) from College Station, TX
+  Colors: #500000 / #FFFFFF
+  Logo search: A&M Consolidated High School Tigers logo College Station
+
+✓ Created/Found team: Waxahachie Indians (Indians) from Waxahachie, TX
+  Colors: #8B0000 / #000000
+  Logo search: Waxahachie High School Indians logo
+
+✓ Created/Found team: Boswell Pioneers (Pioneers) from Fort Worth, TX
+  Colors: #000080 / #C0C0C0
+  Logo search: Boswell High School Pioneers logo Fort Worth
+
+✓ Created/Found team: North Forney Falcons (Falcons) from Forney, TX
+  Colors: #8B0000 / #000000
+  Logo search: North Forney High School Falcons logo
+
+✓ Created/Found team: Royse City Bulldogs (Bulldogs) from Royse City, TX
+  Colors: #000080 / #FFD700
+  Logo search: Royse City High School Bulldogs logo
+
+✓ Created/Found team: Longview Lobos (Lobos) from Longview, TX
+  Colors: #FFFFFF / #000080
+  Logo search: Longview High School Lobos logo
+
+✓ Created/Found team: Rockwall Yellowjackets (Yellowjackets) from Rockwall, TX
+  Colors: #FFD700 / #000000
+  Logo search: Rockwall High School Yellowjackets logo
+
+✓ Created/Found team: Tyler Legacy Red Raiders (Red Raiders) from Tyler, TX
+  Colors: #8B0000 / #000000
+  Logo search: Tyler Legacy High School Red Raiders logo
+
+✓ Created/Found team: Rockwall Heath Hawks (Hawks) from Rockwall, TX
+  Colors: #000080 / #C0C0C0
+  Logo search: Rockwall Heath High School Hawks logo
+
+Creating games from Forney 2025 schedule...
+✓ Created/Found game: Forney Jackrabbits vs Rowlett Eagles on 2025-08-29
+✓ Created/Found game: Lake Highlands Wildcats vs Forney Jackrabbits on 2025-08-28
+✓ Created/Found game: A&M Consolidated Tigers vs Forney Jackrabbits on 2025-09-05
+✓ Created/Found game: Forney Jackrabbits vs Waxahachie Indians on 2025-09-12
+✓ Created/Found game: Boswell Pioneers vs Forney Jackrabbits on 2025-09-19
+✓ Created/Found game: Forney Jackrabbits vs North Forney Falcons on 2025-09-26
+✓ Created/Found game: Royse City Bulldogs vs Forney Jackrabbits on 2025-10-03
+✓ Created/Found game: Forney Jackrabbits vs Longview Lobos on 2025-10-10
+✓ Created/Found game: Rockwall Yellowjackets vs Forney Jackrabbits on 2025-10-17
+✓ Created/Found game: Forney Jackrabbits vs Tyler Legacy Red Raiders on 2025-10-31
+✓ Created/Found game: Rockwall Heath Hawks vs Forney Jackrabbits on 2025-11-06
+
+🏈 Forney 2025 Schedule Teams and Games Created!
+Organization: FHS Broadcast Team
+Teams created: 16
+Games created: 12
+scoreboard-app main % bundle exec rails runner db/seeds/logo_finder.rb
+🏈 Texas High School Football Team Logo Resources
+==================================================
+
+1. Forney Jackrabbits
+   Notes: Primary team - Navy blue and gold colors, jackrabbit mascot
+   Suggested URLs to check:
+   • https://www.forneyisd.net/schools/forney-high-school
+   • https://www.maxpreps.com/high-schools/forney-jackrabbits-(forney,tx)/football/home.htm
+
+2. Rowlett Eagles
+   Notes: Red and white colors, eagle mascot
+   Suggested URLs to check:
+   • https://www.risd.org/rowletths
+   • https://www.maxpreps.com/high-schools/rowlett-eagles-(rowlett,tx)/football/home.htm
+
+3. Lake Highlands Wildcats
+   Notes: Part of Richardson ISD, navy and gold colors
+   Suggested URLs to check:
+   • https://www.risd.org/lakehighlandshs
+   • https://www.maxpreps.com/high-schools/lake-highlands-wildcats-(dallas,tx)/football/home.htm
+
+4. A&M Consolidated Tigers
+   Notes: College Station ISD, maroon and white (A&M colors)
+   Suggested URLs to check:
+   • https://www.csisd.org/amchs
+   • https://www.maxpreps.com/high-schools/a-and-m-consolidated-tigers-(college-station,tx)/football/home.htm
+
+5. Waxahachie Indians
+   Notes: Red and black colors, traditional program
+   Suggested URLs to check:
+   • https://www.wisd.org/whs
+   • https://www.maxpreps.com/high-schools/waxahachie-indians-(waxahachie,tx)/football/home.htm
+
+6. Boswell Pioneers
+   Notes: Fort Worth area, navy and silver colors
+   Suggested URLs to check:
+   • https://www.eanesisd.net/boswell
+   • https://www.maxpreps.com/high-schools/boswell-pioneers-(fort-worth,tx)/football/home.htm
+
+7. North Forney Falcons
+   Notes: Sister school to Forney, red and black colors
+   Suggested URLs to check:
+   • https://www.forneyisd.net/schools/north-forney-high-school
+   • https://www.maxpreps.com/high-schools/north-forney-falcons-(forney,tx)/football/home.htm
+
+8. Royse City Bulldogs
+   Notes: Navy and gold colors, bulldog mascot
+   Suggested URLs to check:
+   • https://www.rcisd.org/rcisd/high-school
+   • https://www.maxpreps.com/high-schools/royse-city-bulldogs-(royse-city,tx)/football/home.htm
+
+9. Longview Lobos
+   Notes: Historic program, white and navy colors
+   Suggested URLs to check:
+   • https://www.longviewisd.org/lhs
+   • https://www.maxpreps.com/high-schools/longview-lobos-(longview,tx)/football/home.htm
+
+10. Rockwall Yellowjackets
+   Notes: Gold and black colors, yellowjacket mascot
+   Suggested URLs to check:
+   • https://www.rockwallisd.com/rhs
+   • https://www.maxpreps.com/high-schools/rockwall-yellowjackets-(rockwall,tx)/football/home.htm
+
+11. Tyler Legacy Red Raiders
+   Notes: Newer school, red and black colors
+   Suggested URLs to check:
+   • https://www.tylerisd.org/tylerlegacy
+   • https://www.maxpreps.com/high-schools/tyler-legacy-red-raiders-(tyler,tx)/football/home.htm
+
+12. Rockwall Heath Hawks
+   Notes: Navy and silver colors, hawk mascot
+   Suggested URLs to check:
+   • https://www.rockwallisd.com/rhhs
+   • https://www.maxpreps.com/high-schools/rockwall-heath-hawks-(rockwall,tx)/football/home.htm
+
+==================================================
+📋 LOGO SEARCH INSTRUCTIONS:
+1. Visit each school's official website first
+2. Check MaxPreps for team logos and colors
+3. Search '[School Name] logo PNG' on Google Images
+4. Look for official athletic department websites
+5. Check Texas UIL (University Interscholastic League) resources
+6. Social media accounts often have high-quality logos
+
+🔍 Additional Resources:
+• Texas UIL: https://www.uiltexas.org/
+• MaxPreps: https://www.maxpreps.com/
+• Individual school district websites
+• Athletic Booster Club websites
+• Local newspaper sports sections
+
+💾 Once you find logos:
+1. Download as high-resolution PNG files
+2. Name files like: 'forney_jackrabbits_logo.png'
+3. Place in app/assets/images/team_logos/
+4. Update seed file to attach logos to teams

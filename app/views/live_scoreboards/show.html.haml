@@ -4,11 +4,11 @@
       = image_tag @game.visitor_team.logo, alt: @game.visitor_team.name, class: "team-logo"
     - else
       .team-logo{style: "background: ##{@game.visitor_team.primary_color || 'cccccc'}"}
-    
+
     .score#visitor-score= @scoreboard.visitor_score
-    
+
     .timeouts#visitor-timeouts= @scoreboard.visitor_timeouts_remaining
-    
+
     .game-info
       - if @scoreboard.is_a?(FootballScoreboard)
         .quarter#quarter
@@ -16,7 +16,7 @@
           - when 1
             1st
           - when 2
-            2nd  
+            2nd
           - when 3
             3rd
           - when 4
@@ -27,14 +27,14 @@
       - else
         .quarter#quarter Q#{@scoreboard.quarter || 1}
         .time#time-remaining= @scoreboard.time_remaining || "00:00"
-    
+
     .timeouts#home-timeouts= @scoreboard.home_timeouts_remaining
-    
+
     .score#home-score= @scoreboard.home_score
-    
+
     - if @game.home_team.logo.attached?
       = image_tag @game.home_team.logo, alt: @game.home_team.name, class: "team-logo"
-    - else  
+    - else
       .team-logo{style: "background: ##{@game.home_team.primary_color || 'cccccc'}"}
 
 - else
@@ -51,23 +51,23 @@
         {
           received: function(data) {
             console.log('Received scoreboard update:', data);
-            
+
             if (data.scoreboard) {
               var scoreboard = data.scoreboard;
               var game = scoreboard.game;
-              
+
               // Update scores
               var visitorScoreEl = document.getElementById('visitor-score');
               var homeScoreEl = document.getElementById('home-score');
               if (visitorScoreEl) visitorScoreEl.textContent = scoreboard.visitor_score;
               if (homeScoreEl) homeScoreEl.textContent = scoreboard.home_score;
-              
+
               // Update timeouts
               var visitorTimeoutsEl = document.getElementById('visitor-timeouts');
               var homeTimeoutsEl = document.getElementById('home-timeouts');
               if (visitorTimeoutsEl) visitorTimeoutsEl.textContent = scoreboard.visitor_timeouts_remaining;
               if (homeTimeoutsEl) homeTimeoutsEl.textContent = scoreboard.home_timeouts_remaining;
-              
+
               // Update quarter
               var quarterEl = document.getElementById('quarter');
               if (quarterEl && scoreboard.type === 'FootballScoreboard') {
@@ -83,17 +83,17 @@
               } else if (quarterEl) {
                 quarterEl.textContent = 'Q' + (scoreboard.quarter || 1);
               }
-              
+
               // Update time
               var timeEl = document.getElementById('time-remaining');
               if (timeEl) timeEl.textContent = scoreboard.time_remaining || '00:00';
             }
           },
-          
+
           connected: function() {
             console.log('Connected to scoreboard channel for organization #{@organization.id}');
           },
-          
+
           disconnected: function() {
             console.log('Disconnected from scoreboard channel');
           }

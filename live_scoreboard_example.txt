@@ -1,0 +1,11 @@
+bundle exec rails runner "
+# Create simple demo data
+org = Organization.first || Organization.create!(name: 'Demo Sports Network')
+home = Team.first || Team.create!(name: 'Home Hawks', organization: org, primary_color: '0066CC')
+visitor = Team.second || Team.create!(name: 'Visitor Vikings', organization: org, primary_color: 'CC0000')
+game = Game.create!(organization: org, home_team: home, visitor_team: visitor, game_date: Date.current, location: 'Demo Stadium')
+scoreboard = FootballScoreboard.create!(game: game, home_score: 14, visitor_score: 10, quarter: 2, time_remaining: '08:45', home_timeouts_remaining: 3, visitor_timeouts_remaining: 2)
+puts \"Created demo data successfully!\"
+puts \"Live scoreboard URL: http://localhost:3000/organizations/#{org.id}/scoreboard\"
+puts \"Scoreboard ID: #{scoreboard.id}\"
+"
