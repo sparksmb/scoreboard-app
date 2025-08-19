@@ -6,7 +6,7 @@ gem "pg", "~> 1.1"
 gem "puma", ">= 5.0"
 
 # gem "jbuilder"
-# gem "redis", ">= 4.0.1"
+gem "redis", ">= 4.0.1"
 # gem "kredis"
 # gem "bcrypt", "~> 3.1.7"
 
