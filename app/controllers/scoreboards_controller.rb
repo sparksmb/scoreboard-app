@@ -49,7 +49,7 @@ class ScoreboardsController < ApplicationController
 
     case @scoreboard.type
     when 'FootballScoreboard'
-      params.require(param_key).permit(:home_score, :visitor_score, :quarter, :time_remaining, :time_remaining_visible, :home_timeouts_remaining, :visitor_timeouts_remaining)
+      params.require(param_key).permit(:home_score, :visitor_score, :quarter, :time_remaining, :time_remaining_visible, :name_visible, :home_timeouts_remaining, :visitor_timeouts_remaining)
     else
       params.require(param_key).permit(:home_score, :visitor_score, :home_timeouts_remaining, :visitor_timeouts_remaining)
     end

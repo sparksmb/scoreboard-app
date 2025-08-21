@@ -49,6 +49,10 @@
         .form-group{style: "flex: 1; display: flex; align-items: center; gap: 10px;"}
           = form.check_box :time_remaining_visible
           = form.label :time_remaining_visible, "Show Time Remaining"
+        
+        .form-group{style: "flex: 1; display: flex; align-items: center; gap: 10px;"}
+          = form.check_box :name_visible
+          = form.label :name_visible, "Show Team Names"
     
     .form-actions
       = form.submit "Update Scoreboard", class: "btn"

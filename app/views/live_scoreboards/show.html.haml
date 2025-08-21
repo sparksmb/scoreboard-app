@@ -4,6 +4,8 @@
       = image_tag @game.visitor_team.logo, alt: @game.visitor_team.name, class: "team-logo"
     - else
       .team-logo{style: "background: ##{@game.visitor_team.primary_color || 'cccccc'}"}
+    - if @scoreboard.name_visible?
+      .team-name#visitor-team-name= @game.visitor_team.name.upcase
 
     .score#visitor-score= @scoreboard.visitor_score
 
@@ -34,6 +36,8 @@
 
     .score#home-score= @scoreboard.home_score
 
+    - if @scoreboard.name_visible?
+      .team-name#home-team-name= @game.home_team.name.upcase
     - if @game.home_team.logo.attached?
       = image_tag @game.home_team.logo, alt: @game.home_team.name, class: "team-logo"
     - else
@@ -101,6 +105,46 @@
               } else {
                 if (timeEl) {
                   timeEl.style.display = 'none';
+                }
+              }
+
+              // Update team name visibility and content
+              var visitorNameEl = document.getElementById('visitor-team-name');
+              var homeNameEl = document.getElementById('home-team-name');
+              if (scoreboard.name_visible) {
+                if (!visitorNameEl && game.visitor_team) {
+                  // Create visitor team name element if it doesn't exist
+                  visitorNameEl = document.createElement('div');
+                  visitorNameEl.id = 'visitor-team-name';
+                  visitorNameEl.className = 'team-name';
+                  // Insert after visitor team logo
+                  var visitorLogo = document.querySelector('.live-scoreboard img:first-of-type, .live-scoreboard .team-logo:first-of-type');
+                  if (visitorLogo) {
+                    visitorLogo.parentNode.insertBefore(visitorNameEl, visitorLogo.nextSibling);
+                  }
+                }
+                if (!homeNameEl && game.home_team) {
+                  // Create home team name element if it doesn't exist  
+                  homeNameEl = document.createElement('div');
+                  homeNameEl.id = 'home-team-name';
+                  homeNameEl.className = 'team-name';
+                  // Insert after home team logo (at the end)
+                  document.querySelector('.live-scoreboard').appendChild(homeNameEl);
+                }
+                if (visitorNameEl && game.visitor_team) {
+                  visitorNameEl.textContent = game.visitor_team.name;
+                  visitorNameEl.style.display = 'block';
+                }
+                if (homeNameEl && game.home_team) {
+                  homeNameEl.textContent = game.home_team.name;
+                  homeNameEl.style.display = 'block';
+                }
+              } else {
+                if (visitorNameEl) {
+                  visitorNameEl.style.display = 'none';
+                }
+                if (homeNameEl) {
+                  homeNameEl.style.display = 'none';
                 }
               }
             }
