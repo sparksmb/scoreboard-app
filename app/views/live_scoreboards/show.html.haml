@@ -5,11 +5,12 @@
     - else
       .team-logo{style: "background: ##{@game.visitor_team.primary_color || 'cccccc'}"}
     - if @scoreboard.name_visible?
-      .team-name#visitor-team-name= @game.visitor_team.name.upcase
+      .team-name#visitor-team-name= @game.visitor_team.name
 
-    .score#visitor-score= @scoreboard.visitor_score
-
-    .timeouts#visitor-timeouts= @scoreboard.visitor_timeouts_remaining
+    .score-column
+      .score#visitor-score= @scoreboard.visitor_score
+      .timeouts#visitor-timeouts
+        = image_tag @scoreboard.timeout_image_path(@scoreboard.visitor_timeouts_remaining), width: "60px", height: "16px", alt: "Timeouts"
 
     .game-info
       - if @scoreboard.is_a?(FootballScoreboard)
@@ -32,12 +33,13 @@
         - if @scoreboard.time_remaining_visible?
           .time#time-remaining= @scoreboard.time_remaining || "00:00"
 
-    .timeouts#home-timeouts= @scoreboard.home_timeouts_remaining
-
-    .score#home-score= @scoreboard.home_score
+    .score-column
+      .score#home-score= @scoreboard.home_score
+      .timeouts#home-timeouts
+        = image_tag @scoreboard.timeout_image_path(@scoreboard.home_timeouts_remaining), width: "60px", height: "16px", alt: "Timeouts"
 
     - if @scoreboard.name_visible?
-      .team-name#home-team-name= @game.home_team.name.upcase
+      .team-name#home-team-name= @game.home_team.name
     - if @game.home_team.logo.attached?
       = image_tag @game.home_team.logo, alt: @game.home_team.name, class: "team-logo"
     - else
@@ -68,11 +70,19 @@
               if (visitorScoreEl) visitorScoreEl.textContent = scoreboard.visitor_score;
               if (homeScoreEl) homeScoreEl.textContent = scoreboard.home_score;
 
-              // Update timeouts
+              // Update timeouts with static SVG files
               var visitorTimeoutsEl = document.getElementById('visitor-timeouts');
               var homeTimeoutsEl = document.getElementById('home-timeouts');
-              if (visitorTimeoutsEl) visitorTimeoutsEl.textContent = scoreboard.visitor_timeouts_remaining;
-              if (homeTimeoutsEl) homeTimeoutsEl.textContent = scoreboard.home_timeouts_remaining;
+              if (visitorTimeoutsEl && scoreboard.visitor_timeouts_remaining !== undefined) {
+                console.log('Updating visitor timeouts:', scoreboard.visitor_timeouts_remaining);
+                var visitorImagePath = '/images/timeouts_' + scoreboard.visitor_timeouts_remaining + '.svg';
+                visitorTimeoutsEl.innerHTML = '<img src="' + visitorImagePath + '" width="60px" height="16px" alt="Timeouts">';
+              }
+              if (homeTimeoutsEl && scoreboard.home_timeouts_remaining !== undefined) {
+                console.log('Updating home timeouts:', scoreboard.home_timeouts_remaining);
+                var homeImagePath = '/images/timeouts_' + scoreboard.home_timeouts_remaining + '.svg';
+                homeTimeoutsEl.innerHTML = '<img src="' + homeImagePath + '" width="60px" height="16px" alt="Timeouts">';
+              }
 
               // Update quarter
               var quarterEl = document.getElementById('quarter');
