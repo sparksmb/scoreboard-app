@@ -14,6 +14,7 @@ gem "devise"
 gem "haml-rails"
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem "bootsnap", require: false
+gem "aws-sdk-s3", require: false
 # gem "image_processing", "~> 1.2"
 # gem "rack-cors"
 
@@ -27,6 +28,7 @@ group :development, :test do
   gem "pry"
   gem "pry-rails"
   gem "pry-byebug"
+  gem "dotenv-rails"
 end
 
 group :test do
