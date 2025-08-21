@@ -23,10 +23,12 @@
             4th
           - else
             OT
-        .time#time-remaining= @scoreboard.time_remaining || "00:00"
+        - if @scoreboard.time_remaining_visible?
+          .time#time-remaining= @scoreboard.time_remaining || "00:00"
       - else
         .quarter#quarter Q#{@scoreboard.quarter || 1}
-        .time#time-remaining= @scoreboard.time_remaining || "00:00"
+        - if @scoreboard.time_remaining_visible?
+          .time#time-remaining= @scoreboard.time_remaining || "00:00"
 
     .timeouts#home-timeouts= @scoreboard.home_timeouts_remaining
 
@@ -84,9 +86,23 @@
                 quarterEl.textContent = 'Q' + (scoreboard.quarter || 1);
               }
 
-              // Update time
+              // Update time visibility and content
               var timeEl = document.getElementById('time-remaining');
-              if (timeEl) timeEl.textContent = scoreboard.time_remaining || '00:00';
+              if (scoreboard.time_remaining_visible) {
+                if (!timeEl) {
+                  // Create time element if it doesn't exist
+                  timeEl = document.createElement('div');
+                  timeEl.id = 'time-remaining';
+                  timeEl.className = 'time';
+                  document.querySelector('.game-info').appendChild(timeEl);
+                }
+                timeEl.textContent = scoreboard.time_remaining || '00:00';
+                timeEl.style.display = 'block';
+              } else {
+                if (timeEl) {
+                  timeEl.style.display = 'none';
+                }
+              }
             }
           },
 

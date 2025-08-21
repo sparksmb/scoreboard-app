@@ -45,6 +45,10 @@
         .form-group{style: "flex: 1;"}
           = form.label :time_remaining, "Time Remaining (MM:SS)"
           = form.text_field :time_remaining, required: true, pattern: "[0-5]?[0-9]:[0-5][0-9]", placeholder: "15:00"
+        
+        .form-group{style: "flex: 1; display: flex; align-items: center; gap: 10px;"}
+          = form.check_box :time_remaining_visible
+          = form.label :time_remaining_visible, "Show Time Remaining"
     
     .form-actions
       = form.submit "Update Scoreboard", class: "btn"
