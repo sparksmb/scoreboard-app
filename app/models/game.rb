@@ -14,7 +14,7 @@ class Game < ApplicationRecord
   scope :today, -> { where(game_date: Date.current.beginning_of_day..Date.current.end_of_day) }
 
   def display_name
-    "#{home_team.name} vs #{visitor_team.name}"
+    "#{visitor_team.name} vs #{home_team.name}"
   end
 
   def status

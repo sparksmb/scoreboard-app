@@ -10,32 +10,33 @@
         %ul
           - @game.errors.full_messages.each do |message|
             %li= message
-    
+
     - if current_user.admin?
       .form-group
         = form.label :organization_id, "Organization"
         = form.select :organization_id, options_from_collection_for_select(Organization.active.order(:name), :id, :name, @game.organization_id), { prompt: "Select organization" }, { required: true }
-    
+
     .form-group
       = form.label :home_team_id, "Home Team"
       = form.select :home_team_id, options_from_collection_for_select(@teams, :id, :name, @game.home_team_id), { prompt: "Select home team" }, { required: true }
-    
+
     .form-group
       = form.label :visitor_team_id, "Visitor Team"
       = form.select :visitor_team_id, options_from_collection_for_select(@teams, :id, :name, @game.visitor_team_id), { prompt: "Select visitor team" }, { required: true }
-    
+
     .form-group
       = form.label :game_date, "Date & Time"
       = form.datetime_local_field :game_date, required: true
-    
+
     .form-group
       = form.label :location
       = form.text_field :location
-    
+
     .form-group
       = form.label :description
       = form.text_area :description, rows: 3
-    
+
     .form-actions
       = form.submit "Update Game", class: "btn"
       = link_to "Cancel", game_path(@game), class: "btn btn-secondary"
+      = link_to "Delete", game_path(@game), class: "btn btn-danger", data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }

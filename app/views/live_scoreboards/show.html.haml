@@ -13,25 +13,9 @@
         = image_tag @scoreboard.timeout_image_path(@scoreboard.visitor_timeouts_remaining), width: "60px", height: "16px", alt: "Timeouts"
 
     .game-info
-      - if @scoreboard.is_a?(FootballScoreboard)
-        .quarter#quarter
-          - case @scoreboard.quarter
-          - when 1
-            1st
-          - when 2
-            2nd
-          - when 3
-            3rd
-          - when 4
-            4th
-          - else
-            OT
-        - if @scoreboard.time_remaining_visible?
-          .time#time-remaining= @scoreboard.time_remaining || "00:00"
-      - else
-        .quarter#quarter Q#{@scoreboard.quarter || 1}
-        - if @scoreboard.time_remaining_visible?
-          .time#time-remaining= @scoreboard.time_remaining || "00:00"
+      .quarter#quarter= @scoreboard.quarter
+      - if @scoreboard.time_remaining_visible?
+        .time#time-remaining= @scoreboard.time_remaining || "00:00"
 
     .score-column
       .score#home-score= @scoreboard.home_score
@@ -86,18 +70,9 @@
 
               // Update quarter
               var quarterEl = document.getElementById('quarter');
-              if (quarterEl && scoreboard.type === 'FootballScoreboard') {
-                var quarterText;
-                switch(scoreboard.quarter) {
-                  case 1: quarterText = '1st'; break;
-                  case 2: quarterText = '2nd'; break;
-                  case 3: quarterText = '3rd'; break;
-                  case 4: quarterText = '4th'; break;
-                  default: quarterText = 'OT'; break;
-                }
-                quarterEl.textContent = quarterText;
-              } else if (quarterEl) {
-                quarterEl.textContent = 'Q' + (scoreboard.quarter || 1);
+              if (quarterEl) {
+                // Quarter is now a string value (PRE, Q1, Q2, HALF, Q3, Q4, OT, FINAL)
+                quarterEl.textContent = scoreboard.quarter || 'PRE';
               }
 
               // Update time visibility and content

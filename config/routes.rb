@@ -8,6 +8,9 @@ Rails.application.routes.draw do
   end
   resources :teams
   resources :games do
+    member do
+      post :new_scoreboard
+    end
     resources :scoreboards, only: [:show, :edit, :update]
   end
   

@@ -1,16 +1,16 @@
 class FootballScoreboard < Scoreboard
-  validates :quarter, presence: true, inclusion: { in: 1..4 }
+  validates :quarter, presence: true, inclusion: { in: %w[PRE Q1 Q2 HALF Q3 Q4 OT FINAL] }
   validates :time_remaining, presence: true, format: { 
     with: /\A([0-5]?\d):([0-5]\d)\z/, 
     message: "must be in MM:SS format" 
   }
   
   def display_time
-    "Q#{quarter} #{time_remaining}"
+    "#{quarter} #{time_remaining}"
   end
   
   def overtime?
-    quarter > 4
+    quarter == 'OT'
   end
   
   def time_expired?

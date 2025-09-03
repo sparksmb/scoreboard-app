@@ -32,7 +32,7 @@ RSpec.describe "Scoreboards", type: :request do
         football_scoreboard: {
           home_score: 14,
           visitor_score: 7,
-          quarter: 2,
+          quarter: 'Q2',
           time_remaining: "08:45",
           home_timeouts_remaining: 2,
           visitor_timeouts_remaining: 1
@@ -48,6 +48,7 @@ RSpec.describe "Scoreboards", type: :request do
       scoreboard.reload
       expect(scoreboard.home_score).to eq(14)
       expect(scoreboard.visitor_score).to eq(7)
+      expect(scoreboard.quarter).to eq('Q2')
       expect(scoreboard.home_timeouts_remaining).to eq(2)
       expect(scoreboard.visitor_timeouts_remaining).to eq(1)
     end

@@ -17,20 +17,6 @@
         %p{style: "font-size: 1.8rem; font-weight: bold; color: #2c5aa0;"}= @scoreboard.display_time
     
     .score-display{style: "display: flex; justify-content: space-around; margin: 40px 0;"}
-      .home-team{style: "text-align: center;"}
-        %h4= @game.home_team.name
-        - if @game.home_team.logo.attached?
-          = image_tag @game.home_team.logo, style: "max-width: 120px; max-height: 120px; margin: 15px 0;"
-        - if @game.home_team.primary_color.present?
-          %div{style: "width: 60px; height: 60px; background-color: #{@game.home_team.primary_color}; margin: 15px auto; border-radius: 8px;"}
-        %div{style: "font-size: 4rem; font-weight: bold; color: #{@game.home_team.primary_color || '#333'}; margin: 20px 0;"}= @scoreboard.home_score
-        - if @scoreboard.is_a?(FootballScoreboard)
-          %div{style: "font-size: 1.2rem; margin-top: 10px; color: #666;"}
-            Timeouts: #{@scoreboard.home_timeouts_remaining}
-      
-      .vs{style: "align-self: center; font-size: 3rem; font-weight: bold; color: #666; margin: 0 40px;"}
-        VS
-      
       .visitor-team{style: "text-align: center;"}
         %h4= @game.visitor_team.name
         - if @game.visitor_team.logo.attached?
@@ -41,6 +27,20 @@
         - if @scoreboard.is_a?(FootballScoreboard)
           %div{style: "font-size: 1.2rem; margin-top: 10px; color: #666;"}
             Timeouts: #{@scoreboard.visitor_timeouts_remaining}
+      
+      .vs{style: "align-self: center; font-size: 3rem; font-weight: bold; color: #666; margin: 0 40px;"}
+        VS
+      
+      .home-team{style: "text-align: center;"}
+        %h4= @game.home_team.name
+        - if @game.home_team.logo.attached?
+          = image_tag @game.home_team.logo, style: "max-width: 120px; max-height: 120px; margin: 15px 0;"
+        - if @game.home_team.primary_color.present?
+          %div{style: "width: 60px; height: 60px; background-color: #{@game.home_team.primary_color}; margin: 15px auto; border-radius: 8px;"}
+        %div{style: "font-size: 4rem; font-weight: bold; color: #{@game.home_team.primary_color || '#333'}; margin: 20px 0;"}= @scoreboard.home_score
+        - if @scoreboard.is_a?(FootballScoreboard)
+          %div{style: "font-size: 1.2rem; margin-top: 10px; color: #666;"}
+            Timeouts: #{@scoreboard.home_timeouts_remaining}
     
     .actions{style: "margin-top: 40px;"}
       = link_to "Update Scoreboard", edit_game_scoreboard_path(@game, @scoreboard), class: "btn", style: "font-size: 1.2rem; padding: 12px 24px;"

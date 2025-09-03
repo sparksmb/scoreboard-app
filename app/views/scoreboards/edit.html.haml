@@ -10,20 +10,8 @@
         %ul
           - @scoreboard.errors.full_messages.each do |message|
             %li= message
-    
+
     .score-section{style: "display: flex; gap: 2rem; margin-bottom: 2rem;"}
-      .home-team{style: "flex: 1; text-align: center; padding: 1rem; border: 2px solid #dee2e6; border-radius: 8px;"}
-        %h4= @game.home_team.name
-        - if @game.home_team.logo.attached?
-          = image_tag @game.home_team.logo, style: "max-width: 80px; max-height: 80px; margin-bottom: 10px;"
-        .form-group
-          = form.label :home_score, "Score"
-          = form.number_field :home_score, min: 0, required: true, style: "width: 100px; font-size: 1.5rem; text-align: center;"
-        - if @scoreboard.is_a?(FootballScoreboard)
-          .form-group{style: "margin-top: 15px;"}
-            = form.label :home_timeouts_remaining, "Timeouts"
-            = form.number_field :home_timeouts_remaining, min: 0, max: 3, required: true, style: "width: 80px; text-align: center;", value: @scoreboard.home_timeouts_remaining
-      
       .visitor-team{style: "flex: 1; text-align: center; padding: 1rem; border: 2px solid #dee2e6; border-radius: 8px;"}
         %h4= @game.visitor_team.name
         - if @game.visitor_team.logo.attached?
@@ -32,28 +20,87 @@
           = form.label :visitor_score, "Score"
           = form.number_field :visitor_score, min: 0, required: true, style: "width: 100px; font-size: 1.5rem; text-align: center;"
         - if @scoreboard.is_a?(FootballScoreboard)
+          .scoring-buttons{style: "margin: 15px 0;"}
+            %h5{style: "margin-bottom: 10px;"} Quick Score
+            .button-group{style: "display: flex; flex-direction: column; gap: 5px;"}
+              %button.scoring-btn{type: "button", data: {team: "visitor", points: 6}, style: "padding: 8px 12px; background: #28a745; color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer;"} TD (+6)
+              %button.scoring-btn{type: "button", data: {team: "visitor", points: 1}, style: "padding: 8px 12px; background: #17a2b8; color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer;"} PAT (+1)
+              %button.scoring-btn{type: "button", data: {team: "visitor", points: 2}, style: "padding: 8px 12px; background: #ffc107; color: black; border: none; border-radius: 4px; font-weight: bold; cursor: pointer;"} 2PT (+2)
+              %button.scoring-btn{type: "button", data: {team: "visitor", points: 3}, style: "padding: 8px 12px; background: #007bff; color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer;"} FG (+3)
+              %button.scoring-btn{type: "button", data: {team: "visitor", points: 2}, style: "padding: 8px 12px; background: #6c757d; color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer;"} SAFETY (+2)
           .form-group{style: "margin-top: 15px;"}
             = form.label :visitor_timeouts_remaining, "Timeouts"
             = form.number_field :visitor_timeouts_remaining, min: 0, max: 3, required: true, style: "width: 80px; text-align: center;", value: @scoreboard.visitor_timeouts_remaining
-    
+
+      .home-team{style: "flex: 1; text-align: center; padding: 1rem; border: 2px solid #dee2e6; border-radius: 8px;"}
+        %h4= @game.home_team.name
+        - if @game.home_team.logo.attached?
+          = image_tag @game.home_team.logo, style: "max-width: 80px; max-height: 80px; margin-bottom: 10px;"
+        .form-group
+          = form.label :home_score, "Score"
+          = form.number_field :home_score, min: 0, required: true, style: "width: 100px; font-size: 1.5rem; text-align: center;"
+        - if @scoreboard.is_a?(FootballScoreboard)
+          .scoring-buttons{style: "margin: 15px 0;"}
+            %h5{style: "margin-bottom: 10px;"} Quick Score
+            .button-group{style: "display: flex; flex-direction: column; gap: 5px;"}
+              %button.scoring-btn{type: "button", data: {team: "home", points: 6}, style: "padding: 8px 12px; background: #28a745; color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer;"} TD (+6)
+              %button.scoring-btn{type: "button", data: {team: "home", points: 1}, style: "padding: 8px 12px; background: #17a2b8; color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer;"} PAT (+1)
+              %button.scoring-btn{type: "button", data: {team: "home", points: 2}, style: "padding: 8px 12px; background: #ffc107; color: black; border: none; border-radius: 4px; font-weight: bold; cursor: pointer;"} 2PT (+2)
+              %button.scoring-btn{type: "button", data: {team: "home", points: 3}, style: "padding: 8px 12px; background: #007bff; color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer;"} FG (+3)
+              %button.scoring-btn{type: "button", data: {team: "home", points: 2}, style: "padding: 8px 12px; background: #6c757d; color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer;"} SAFETY (+2)
+          .form-group{style: "margin-top: 15px;"}
+            = form.label :home_timeouts_remaining, "Timeouts"
+            = form.number_field :home_timeouts_remaining, min: 0, max: 3, required: true, style: "width: 80px; text-align: center;", value: @scoreboard.home_timeouts_remaining
+
     - if @scoreboard.is_a?(FootballScoreboard)
       .football-controls{style: "display: flex; gap: 2rem; margin-bottom: 2rem;"}
         .form-group{style: "flex: 1;"}
           = form.label :quarter, "Quarter"
-          = form.select :quarter, options_for_select((1..4).map { |q| ["Quarter #{q}", q] } + [["Overtime", 5]], @scoreboard.quarter), {}, { required: true }
-        
+          = form.select :quarter, options_for_select([ ["Pre-Game", "PRE"], ["1st Quarter", "Q1"], ["2nd Quarter", "Q2"], ["Halftime", "HALF"], ["3rd Quarter", "Q3"], ["4th Quarter", "Q4"], ["Overtime", "OT"], ["Final", "FINAL"] ], @scoreboard.quarter), {}, { required: true }
+
         .form-group{style: "flex: 1;"}
           = form.label :time_remaining, "Time Remaining (MM:SS)"
           = form.text_field :time_remaining, required: true, pattern: "[0-5]?[0-9]:[0-5][0-9]", placeholder: "15:00"
-        
+
         .form-group{style: "flex: 1; display: flex; align-items: center; gap: 10px;"}
           = form.check_box :time_remaining_visible
           = form.label :time_remaining_visible, "Show Time Remaining"
-        
+
         .form-group{style: "flex: 1; display: flex; align-items: center; gap: 10px;"}
           = form.check_box :name_visible
           = form.label :name_visible, "Show Team Names"
-    
+
     .form-actions
       = form.submit "Update Scoreboard", class: "btn"
       = link_to "Cancel", game_scoreboard_path(@game, @scoreboard), class: "btn btn-secondary"
+
+:javascript
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.scoring-btn').forEach(function(button) {
+      button.addEventListener('click', function() {
+        const team = this.dataset.team;
+        const points = parseInt(this.dataset.points);
+        
+        // Determine which input field to update
+        let scoreInput;
+        if (team === 'home') {
+          scoreInput = document.getElementById('football_scoreboard_home_score');
+        } else {
+          scoreInput = document.getElementById('football_scoreboard_visitor_score');
+        }
+        
+        // Get current score and add points
+        const currentScore = parseInt(scoreInput.value) || 0;
+        const newScore = currentScore + points;
+        
+        // Update the input field
+        scoreInput.value = newScore;
+        
+        // Add visual feedback
+        this.style.transform = 'scale(0.95)';
+        setTimeout(() => {
+          this.style.transform = 'scale(1)';
+        }, 100);
+      });
+    });
+  });

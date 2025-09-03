@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_08_21_011022) do
+ActiveRecord::Schema[7.2].define(version: 2025_09_03_202918) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
   enable_extension "plpgsql"
@@ -73,14 +73,14 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_21_011022) do
     t.string "type", null: false
     t.integer "home_score", default: 0
     t.integer "visitor_score", default: 0
-    t.integer "quarter", default: 1
-    t.string "time_remaining", default: "15:00"
+    t.string "time_remaining", default: "12:00"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "home_timeouts_remaining", default: 3
     t.integer "visitor_timeouts_remaining", default: 3
     t.boolean "time_remaining_visible", default: false
     t.boolean "name_visible", default: false
+    t.string "quarter", default: "PRE"
     t.index ["game_id"], name: "index_scoreboards_on_game_id"
     t.index ["type"], name: "index_scoreboards_on_type"
   end

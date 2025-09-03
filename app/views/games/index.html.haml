@@ -24,9 +24,6 @@
           %td
             = link_to "View", game_path(game), class: "btn btn-secondary"
             = link_to "Edit", edit_game_path(game), class: "btn"
-            - if game.scoreboard
-              = link_to "Scoreboard", game_scoreboard_path(game, game.scoreboard), class: "btn"
-            = link_to "Delete", game_path(game), class: "btn btn-danger", data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }
 - else
   .card
     %p No games found.
