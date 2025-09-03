@@ -1,17 +1,16 @@
 class LiveScoreboardsController < ApplicationController
   skip_before_action :authenticate_user!
-  
+
   def show
     @organization = Organization.find(params[:organization_id])
-    
-    # Find the game for today or the next upcoming game
-    today = Date.current
+
+    cutoff_time = 6.hours.ago
     @game = @organization.games
                          .joins(:home_team, :visitor_team)
-                         .where('game_date >= ?', today)
+                         .where('game_date >= ?', cutoff_time)
                          .order(:game_date)
                          .first
-    
+
     if @game&.scoreboard
       @scoreboard = @game.scoreboard
     else
@@ -19,7 +18,7 @@ class LiveScoreboardsController < ApplicationController
       @game = nil
       @scoreboard = nil
     end
-    
+
     render layout: 'live_scoreboard'
   end
 end

@@ -229,6 +229,8 @@
         %h1 Scoreboard App - Admin
         .nav-links
           - if user_signed_in?
+            - if current_user.organization_id
+              = link_to "Live Scoreboard", organization_scoreboard_path(current_user.organization_id)
             = link_to "Organizations", organizations_path
             = link_to "Teams", teams_path
             = link_to "Games", games_path
