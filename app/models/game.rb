@@ -20,7 +20,7 @@ class Game < ApplicationRecord
   def status
     if game_date.future?
       'upcoming'
-    elsif game_date < 1.hour.ago
+    elsif game_date.to_date < Date.current
       'completed'
     else
       'in_progress'

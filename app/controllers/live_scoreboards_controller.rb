@@ -4,10 +4,9 @@ class LiveScoreboardsController < ApplicationController
   def show
     @organization = Organization.find(params[:organization_id])
 
-    cutoff_time = 6.hours.ago
     @game = @organization.games
                          .joins(:home_team, :visitor_team)
-                         .where('game_date >= ?', cutoff_time)
+                         .where(game_date: Date.current.beginning_of_day..Date.current.end_of_day)
                          .order(:game_date)
                          .first
 
